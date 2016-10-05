@@ -81,11 +81,13 @@ public class dashboard extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+
             // Handle the camera action
+            //can do report feedback using the camera
         } else if (id == R.id.nav_gallery) {
-
+            //gallery of items to order in flight
         } else if (id == R.id.nav_slideshow) {
-
+            //
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
