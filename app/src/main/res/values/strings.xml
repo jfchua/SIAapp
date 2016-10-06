@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">SIAapp</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
+    <!--For User Profile-->
+    <string name="profileSetting">Profile Setting</string>
+    <string name="profileName">Profile Name</string>
+    <string name="permission_failure">FAILED FOR PERMISSION</string>
+
 </resources>

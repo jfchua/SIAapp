@@ -1,8 +1,20 @@
 package kenneth.jf.siaapp;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.le.BluetoothLeAdvertiser;
+import android.bluetooth.le.BluetoothLeScanner;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,14 +24,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private static final int PERMISSION_REQUEST_COARSE_LOCATION =1 ;
+    private static final int REQUEST_COARSE_LOCATION_PERMISSIONS = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -40,6 +60,9 @@ public class dashboard extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        doDiscovery();
+
     }
 
     @Override
@@ -79,14 +102,21 @@ public class dashboard extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentManager fragmentManager = getFragmentManager();
 
-        if (id == R.id.nav_camera) {
-
+        if (id == R.id.first_frag) {
+            //this is for the profile setting
+            fragmentManager.beginTransaction().replace(R.id.contentFrame, new firstFrag()).commit();
+            Toast.makeText(this, "FIRST FRAGMENT IS CALLED", Toast.LENGTH_LONG).show();
             // Handle the camera action
             //can do report feedback using the camera
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.second_frag) {
             //gallery of items to order in flight
-        } else if (id == R.id.nav_slideshow) {
+            fragmentManager.beginTransaction().replace(R.id.contentFrame, new secondFrag()).commit();
+            Toast.makeText(this, "SECOND FRAGMENT IS CALLED", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.third_frag) {
+            fragmentManager.beginTransaction().replace(R.id.contentFrame, new thirdFrag()).commit();
+            Toast.makeText(this, "THIRD FRAGMENT IS CALLED", Toast.LENGTH_LONG).show();
             //
         } else if (id == R.id.nav_manage) {
 
@@ -100,4 +130,37 @@ public class dashboard extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void doDiscovery() {
+        int hasPermission = ActivityCompat.checkSelfPermission(dashboard.this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        if (hasPermission == PackageManager.PERMISSION_GRANTED) {
+            //continueDoDiscovery();
+            return;
+        }
+
+        ActivityCompat.requestPermissions(dashboard.this,
+                new String[]{
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                REQUEST_COARSE_LOCATION_PERMISSIONS);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_COARSE_LOCATION_PERMISSIONS: {
+                if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //continueDoDiscovery();
+                } else {
+                    Toast.makeText(this,
+                            getResources().getString(R.string.permission_failure),
+                            Toast.LENGTH_LONG).show();
+                    //cancelOperation();
+                }
+                return;
+            }
+        }
+    }
+
+
+
 }

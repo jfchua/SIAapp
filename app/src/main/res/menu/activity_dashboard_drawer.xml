@@ -3,17 +3,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/first_frag"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Content1" />
+            android:title="first frag" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/second_frag"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Content2" />
+            android:title="second frag" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/third_frag"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Content3" />
+            android:title="third frag" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
