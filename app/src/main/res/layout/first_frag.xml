@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout1"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="#fff">
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:text="Empty Space to Buffer The Top Part"-->
+        <!--android:layout_weight = "1" />-->
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="#fff"
+        android:scrollbars="vertical" android:id="@+id/ScrollView" >
+
+        <!--body start-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/body"
+            android:layout_height="match_parent" android:background="#fff">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                android:orientation="vertical">
+
+            </LinearLayout>
+            <!--IGNORE TOP, START FROM THIS POINT-->
+            <!--first layer == General Settings-->
+            <LinearLayout android:layout_height="0dp" android:layout_weight="4"
+                android:layout_width="match_parent" android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="PROFILE SETTING"/>
+
+                <ImageView
+                    android:id="@+id/imageToUpload"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <EditText android:layout_height="0dp"
+                    android:layout_width="match_parent" android:id="@+id/editUploadName"
+                    android:hint="enter upload name here"
+                    android:layout_weight="1">
+                </EditText>
+
+                <Button android:layout_height="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:text="Upload Image">
+                </Button>
+
+            </LinearLayout>
+
+            <!--2nd layer== Profile Name Prompt-->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_weight="2">
+
+
+                <TextView
+                    android:id="@+id/profileNamePrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Profile Name: "
+                    android:gravity="center"
+                    android:layout_gravity="left"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/profileNameInput"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_gravity="left"
+                    android:textSize="20sp"
+                    android:hint="Enter Your Profile Name"
+                    android:maxLength="2000"/>
+            </LinearLayout>
+
+
+            <!--3rd layer == Passport Prompt-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/passportNumberPrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Passport Number: "
+                    android:gravity="center"
+                    android:layout_gravity="left"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/passportNumberInput"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_gravity="left"
+                    android:textSize="20sp"
+                    android:hint="Enter Your Passport Number"
+                    android:maxLength="10"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3" android:orientation="vertical"
+                >
+
+                <TextView android:text="t2"
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+                </TextView>
+
+                <TextView android:text="t3"
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+                </TextView>
+
+                <TextView android:text="4t"
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+                </TextView>
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
