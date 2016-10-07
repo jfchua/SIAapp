@@ -1,33 +1,48 @@
 package kenneth.jf.siaapp;
 
 import android.app.Fragment;
-import android.bluetooth.*;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.le.AdvertiseData;
-import android.bluetooth.le.AdvertiseSettings;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
-import android.hardware.SensorManager;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.nio.ByteBuffer;
-import java.util.UUID;
+import org.altbeacon.beacon.Beacon;
+import org.altbeacon.beacon.BeaconConsumer;
+import org.altbeacon.beacon.BeaconManager;
+import org.altbeacon.beacon.BeaconParser;
+import org.altbeacon.beacon.Identifier;
+import org.altbeacon.beacon.MonitorNotifier;
+import org.altbeacon.beacon.RangeNotifier;
+import org.altbeacon.beacon.Region;
+
+import java.util.Collection;
+
 
 
 /**
  * Created by User on 5/10/2016.
  */
-// for beacon connection
+// for beacon connection using bluetooth Manager
 public class secondFrag extends Fragment {
+    private static final String TAG = "SECOND FRAGMENT FOR MONITORINH";
+
+
+    /*Creating a beacon*/
+
+
+
     View myView;
     // ------------------------------------------------------------------------
     // members
@@ -44,10 +59,15 @@ public class secondFrag extends Fragment {
     // default stuff...
     // ------------------------------------------------------------------------
 
+    //Beacon Manager
+     private BeaconManager mBeaconManager;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.second_frag,container,false);
+        myView = inflater.inflate(R.layout.second_frag,null,false);
+
 
         // init BLE --> need to add getActivity
         btManager = (BluetoothManager)getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
@@ -133,6 +153,7 @@ public class secondFrag extends Fragment {
                 //Record in front
                 Log.i(LOG_TAG,"UUID: " +uuid + "\\nmajor: " +major +"\\nminor" +minor);
                 setText("UUID: " +uuid + "\\nmajor: " +major +"\\nminor" +minor);
+                //Toast.makeText(getActivity(), "Your Beacon Is Found!", Toast.LENGTH_LONG).show();
 
             }
 
@@ -155,34 +176,54 @@ public class secondFrag extends Fragment {
         return new String(hexChars);
     }
     public void setText(String text){
-        TextView textView = (TextView) getView().findViewById(R.id.beaconID);
+        TextView textView = (TextView) myView.findViewById(R.id.beaconID);
         textView.setText(text);
     }
 
-//    protected void setAdvertiseData() {
-//        AdvertiseData.Builder mBuilder = new AdvertiseData.Builder()
-//        ByteBuffer mManufacturerData = ByteBuffer.allocate(24);
-//        byte[] uuid = getIdAsByte(UUID.fromString("0CF052C297CA407C84F8B62AAC4E9020"));
-//        mManufacturerData.put(0, (byte)0xBE); // Beacon Identifier
-//        mManufacturerData.put(1, (byte)0xAC); // Beacon Identifier
-//        for (int i=2; i<=17; i++) {
-//            mManufacturerData.put(i, uuid[i-2]); // adding the UUID
-//        }
-//        mManufacturerData.put(18, (byte)0x00); // first byte of Major
-//        mManufacturerData.put(19, (byte)0x09); // second byte of Major
-//        mManufacturerData.put(20, (byte)0x00); // first minor
-//        mManufacturerData.put(21, (byte)0x06); // second minor
-//        mManufacturerData.put(22, (byte)0xB5); // txPower
-//        mBuilder.addManufacturerData(224, mManufacturerData.array()); // using google's company ID
-//        mAdvertiseData = mBuilder.build();
-//    }
-//
-//    protected void setAdvertiseSettings() {
-//        AdvertiseSettings.Builder mBuilder = new AdvertiseSettings.Builder();
-//        mBuilder.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_POWER);
-//        mBuilder.setConnectable(false);
-//        mBuilder.setTimeout(0);
-//        mBuilder.setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_MEDIUM);
-//        mAdvertiseSettings = mBuilder.build();
-//    }
+
+//redundant from here onwards
+
+
+    /*public void onDestroy() {
+        super.onDestroy();
+
+    }
+    @Override
+    public void onBeaconServiceConnect() {
+        mBeaconManager.setMonitorNotifier(new MonitorNotifier() {
+            @Override
+            public void didEnterRegion(Region region) {
+                Log.i(TAG, "I just saw an beacon for the first time!");
+            }
+
+            @Override
+            public void didExitRegion(Region region) {
+                Log.i(TAG, "I no longer see an beacon");
+            }
+
+            @Override
+            public void didDetermineStateForRegion(int state, Region region) {
+                Log.i(TAG, "I have just switched from seeing/not seeing beacons: "+state);
+            }
+        });
+
+        try {
+            mBeaconManager.startMonitoringBeaconsInRegion(new Region("myMonitoringUniqueId", null, null, null));
+        } catch (RemoteException e) {    }
+    }
+
+    @Override
+    public Context getApplicationContext() {
+        return null;
+    }
+
+    @Override
+    public void unbindService(ServiceConnection serviceConnection) {
+
+    }
+
+    @Override
+    public boolean bindService(Intent intent, ServiceConnection serviceConnection, int i) {
+        return false;
+    }*/
 }
