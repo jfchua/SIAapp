@@ -1,43 +1,44 @@
 package kenneth.jf.siaapp;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothManager;
-import android.bluetooth.le.BluetoothLeAdvertiser;
-import android.bluetooth.le.BluetoothLeScanner;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.altbeacon.beacon.BeaconManager;
-import org.altbeacon.beacon.BeaconParser;
+import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
 
 public class dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    //POWER SAVER
+    private BackgroundPowerSaver backgroundPowerSaver;
 
     private static final String TAG = "SIA APP";
     private static final int PERMISSION_REQUEST_COARSE_LOCATION =1 ;
     private static final int REQUEST_COARSE_LOCATION_PERMISSIONS = 1;
+
+
+
+
+
 
 
     @Override
@@ -45,6 +46,20 @@ public class dashboard extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+
+        //IMAGE VIEW
+        /*ImageView imageView = new ImageView(this);
+        // Set the background color to white
+        imageView.setBackgroundColor(Color.WHITE);
+        // Parse the SVG file from the resource
+        SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.android);
+        // Get a drawable from the parsed SVG and set it as the drawable for the ImageView
+        imageView.setImageDrawable(svg.createPictureDrawable());
+        // Set the ImageView as the content view for the Activity
+        setContentView(imageView);*/
+
+        //power saver
+        backgroundPowerSaver = new BackgroundPowerSaver(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

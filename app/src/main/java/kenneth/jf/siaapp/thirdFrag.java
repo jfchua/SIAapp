@@ -83,7 +83,23 @@ public class thirdFrag extends Fragment implements BeaconConsumer {
                     Log.i(TAG, "The first beacon I see is about "+beacons.iterator().next().getDistance()+" meters away.");
                     //textResult = "The first beacon I see is about "+beacons.iterator().next().getDistance()+" meters away.";
                     //text.setText("THE DISTANCE IS: " + beacons.iterator().next().getDistance());
-                    setText("The first beacon I see is about "+beacons.iterator().next().getDistance()+" meters away.");
+                    setText1("The first beacon I see is about "+beacons.iterator().next().getDistance()+" meters away.");
+
+
+                    if(beacons.iterator().next().getDistance() < 1){
+                        setText("Immediate - YOU ARE VERY CLOSE");
+                    }
+                    if(beacons.iterator().next().getDistance() > 1){
+                        setText("NEAR - SOMEWHAT CLOSE");
+                    }
+                    if(beacons.iterator().next().getDistance() > 5){
+                        setText("SOME DISTANCE AWAY - MOVE CLOSER");
+                    }
+                    if(beacons.iterator().next().getDistance() < 1){
+                        setText("FAR AWAY - GET MOVING");
+                    }
+
+
                 }
                 /*for (Beacon beacon: beacons) {
                     Log.i(TAG, "This beacon has identifiers:"+beacon.getId1()+", "+beacon.getId2()+", "+beacon.getId3());
@@ -130,7 +146,7 @@ public class thirdFrag extends Fragment implements BeaconConsumer {
         super.onDestroy();
     }
 
-    public void setText(String msg){
+    public void setText1(String msg){
         final String str = msg;
         getActivity().runOnUiThread(new Runnable(){
            @Override
@@ -138,6 +154,17 @@ public class thirdFrag extends Fragment implements BeaconConsumer {
                TextView result = (TextView) myView.findViewById(R.id.thirdResult);
                result.setText(str);
            }
+        });
+
+    }
+    public void setText(String msg){
+        final String str = msg;
+        getActivity().runOnUiThread(new Runnable(){
+            @Override
+            public void run(){
+                TextView result = (TextView) myView.findViewById(R.id.distanceAlert);
+                result.setText(str);
+            }
         });
 
     }
